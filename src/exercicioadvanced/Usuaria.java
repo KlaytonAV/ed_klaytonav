@@ -7,50 +7,47 @@
 package exercicioadvanced;
 
 import java.util.Scanner;
+
 /**
  *
  * @author Klayton Vilares
  */
 public class Usuaria {
-  
-    public static void main(String[] args)
-          {
-              int maxSize = 100;            // coloca em uma constante o tamanho do vetor
-              Estrutur arr = new Estrutur(maxSize); // instancia a estrutura de dados
-              Scanner entrada = new Scanner (System.in); //Instancio o objeto entrada do tipo Scanner
-              Scanner entradaint = new Scanner (System.in);
-              Scanner entradadouble = new Scanner (System.in);
-              System.out.println("Cadastro de Joagadores");
-              
-              for (int i = 1; i < 2; i++) {
-                 System.out.println("Digite o nome do jogador " + i);
-                 String nome = entrada.nextLine();
-                 System.out.println("Digite a altura do Jogador " + nome);
-                 double altura = entradadouble.nextDouble();
-                 System.out.println("Digite a idade do Jogador " + nome);
-                 int idade = entradaint.nextInt();
-                 arr.insert(nome, altura, idade);
-              }
 
-              System.out.println("Muito Bem! Agora que você cadastrou os jogadores, digite uma idade");
+    public static void main(String[] args) {
+        int maxSize = 100;            // coloca em uma constante o tamanho do vetor
+        Estrutura estrutura = new Estrutura(maxSize);
+        Scanner scanner = new Scanner(System.in);
+        estrutura.insert("Jonas", 19, 1.8);
+        estrutura.insert("Andre", 28, 2.3);
+        estrutura.insert("Marcos", 23, 1.5);
+        estrutura.insert("Alfredo", 32, 2.2);
+        estrutura.insert("Josias", 24, 1.7);
+        estrutura.insert("Marcelo", 18, 2.9);
+        estrutura.insert("Rubens", 21, 2.7);
+        estrutura.insert("Bob Marley", 35, 2.0);
+        estrutura.display();
 
-              if (!arr.findByAge(entradadouble.nextLine())
-                  System.out.println("Não encontrado nenhum nome!!");
-              
-              
-              
-              int posicao = arr.findByAge(entradadouble.nextLine());
-              
-              if (posicao != arr.size())
-                    System.out.println("Encontrei na posicao" + posicao );
-              else
-                    System.out.println("Não encontrado");
-              
-              
-              
-              
-              
-              arr.display();
-          }      
-          
+        System.out.println("\nInsira a Idade para pesquisa: ");
+        int idade = Integer.parseInt(scanner.nextLine());
+        int posicao = estrutura.findByIdade(idade);
+        if (posicao == estrutura.size()) {
+            System.out.println("Nenhum cadastro se encaixa nessa idade!");
+        } else {
+            estrutura.DisplayByPosition(posicao);
+        }
+
+        System.out.println("Insira um Nome para pesquisa: ");
+        String nome = scanner.nextLine();
+        estrutura.DisplayByName(nome);
+        
+        System.out.println("Insira um nome para excluir:");
+        nome = scanner.nextLine();
+        if (!estrutura.delete(nome)) {
+            System.out.println("Não encontrado");
+        } else {
+            System.out.println("Deletado!");
+        }        
+        estrutura.display();
+    }
 }
